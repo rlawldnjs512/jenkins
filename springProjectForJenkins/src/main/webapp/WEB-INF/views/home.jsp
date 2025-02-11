@@ -15,6 +15,7 @@
 		<h3>${result}</h3>
 		<h3>home.jsp 작업 추가 했습니다.</h3>
 		<h3>github webhook 동작</h3>
+		<h3>github action 동작</h3>
 	</div>
 </body>
 </html>
