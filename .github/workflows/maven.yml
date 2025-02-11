@@ -1,0 +1,38 @@
+# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ] # main 브랜치에 push가 발생했을 때의 동작(트리거)
+  pull_request:
+    branches: [ "main" ] # main 브랜치에 pull_request가 생성되면 동작(트리거)
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest # github action에서 실행할 운영체제
+
+    steps:
+    - uses: actions/checkout@v4 # repository 코드를 checkout
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4 # jdk17를 설치
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven # maven 의존성 캐시 활성화
+    - name: Build with Maven
+      run: mvn clean install -DskipTests -f ./springProjectForJenkins/pom.xml # 빌드 및 의존성 설치(테스트는 건너뛰기)
+
+    - name: Deploy to Tomcat Server # Tomcat 서버에 WAR 파일을 배포 (처음은 deploy 수정후엔 redeploy)
+    - run: mvn tomcat:deploy -DskipTests -f ./springProjectForJenkins/pom.xml || mvn tomcat:redeploy -DskipTests -f ./springProjectForJenkins/pom.xml
+      env:
+        TOMCAT_USERNAME: tomcat # tomcat 사용자명
+        TOMCAT_PASSWORD: tomcat # tomcat 비밀번호
+        TOMCAT_URL: 'http://localhost:9000/manager/text' # tomcat url (/html->/text)
