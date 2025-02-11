@@ -35,4 +35,4 @@ jobs:
       env:
         TOMCAT_USERNAME: tomcat # tomcat 사용자명
         TOMCAT_PASSWORD: tomcat # tomcat 비밀번호
-        TOMCAT_URL: 'http://localhost:9000/manager/text' # tomcat url (/html->/text)
+        TOMCAT_URL: 'https://7592-14-36-141-71.ngrok-free.app/manager/text' # tomcat url (/html->/text)
