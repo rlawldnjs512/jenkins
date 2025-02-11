@@ -3,8 +3,6 @@ name: Java CI with Maven
 on:
   push:
     branches: [ "main" ] # main 브랜치에 push가 발생했을 때의 동작(트리거)
-  pull_request:
-    branches: [ "main" ] # main 브랜치에 pull_request가 생성되면 동작(트리거)
 
 jobs:
   build:
@@ -24,7 +22,4 @@ jobs:
 
     - name: Deploy to Tomcat Server # Tomcat 서버에 WAR 파일을 배포 (처음은 deploy 수정후엔 redeploy)
       run: mvn tomcat:deploy -DskipTests -f ./springProjectForJenkins/pom.xml || mvn tomcat:redeploy -DskipTests -f ./springProjectForJenkins/pom.xml
-      env:
-        TOMCAT_USERNAME: tomcat # tomcat 사용자명
-        TOMCAT_PASSWORD: tomcat # tomcat 비밀번호
-        TOMCAT_URL: 'https://7592-14-36-141-71.ngrok-free.app/manager/text' # tomcat url (/html->/text)
+     
