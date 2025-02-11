@@ -1,11 +1,3 @@
-# This workflow will build a Java project with Maven, and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-maven
-
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: Java CI with Maven
 
 on:
@@ -31,7 +23,7 @@ jobs:
       run: mvn clean install -DskipTests -f ./springProjectForJenkins/pom.xml # 빌드 및 의존성 설치(테스트는 건너뛰기)
 
     - name: Deploy to Tomcat Server # Tomcat 서버에 WAR 파일을 배포 (처음은 deploy 수정후엔 redeploy)
-    - run: mvn tomcat:deploy -DskipTests -f ./springProjectForJenkins/pom.xml || mvn tomcat:redeploy -DskipTests -f ./springProjectForJenkins/pom.xml
+      run: mvn tomcat:deploy -DskipTests -f ./springProjectForJenkins/pom.xml || mvn tomcat:redeploy -DskipTests -f ./springProjectForJenkins/pom.xml
       env:
         TOMCAT_USERNAME: tomcat # tomcat 사용자명
         TOMCAT_PASSWORD: tomcat # tomcat 비밀번호
